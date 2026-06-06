@@ -241,8 +241,7 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
   position:relative;padding:0 6px 20px;
   cursor: grab;
   transition: transform 0.2s, opacity 0.2s;
-  flex:0 0 620px;min-width:620px;max-width:620px;width:620px;
-}
+  flex:0 0 310px;min-width:310px;max-width:310px;width:310px;}
 .group-col .grp-head{
   border-bottom-left-radius:0;
   border-bottom-right-radius:0;
@@ -343,7 +342,7 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
 .dc-head{
   background:linear-gradient(90deg,var(--navy) 0%,var(--navy2) 100%);
   color:#fff;padding:10px 12px;display:flex;align-items:center;gap:8px;
-  user-select:none;cursor:grab;
+  user-select:none;cursor:grab;position:relative;
   border-radius:var(--radius) var(--radius) 0 0;
 }
 .dc-icon{font-size:14px;flex-shrink:0;}
@@ -352,8 +351,8 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
   font-size:10px;background:rgba(255,255,255,.18);
   padding:2px 8px;border-radius:20px;white-space:nowrap;letter-spacing:.3px;font-weight:600;
 }
-.dc-acts{display:flex;gap:3px;opacity:0;transition:opacity .18s, width .18s;flex-shrink:0;width:0;overflow:hidden;}
-.dc:hover .dc-acts{opacity:1;width:auto;overflow:visible;}
+.dc-acts{display:flex;gap:3px;opacity:0;flex-shrink:0;width:0;overflow:hidden;transform:scale(0.7);transition:opacity .18s, transform .2s, width .18s;}
+.dc:hover .dc-acts{opacity:1;width:auto;overflow:visible;transform:scale(1);}
 .dc-acts button{
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
   border-radius:5px;color:#fff;cursor:pointer;font-size:12px;
@@ -361,8 +360,6 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
   transition:background .13s;flex-shrink:0;
 }
 .dc-acts button:hover{background:rgba(255,255,255,.28);}
-
-
 
 
 .group-col.dragging{
@@ -377,9 +374,6 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
 }
 .group-col:has(.dept-cards .dc:only-child) .dept-cards {
   grid-template-columns: 1fr;
-}
-.group-col:has(.dept-cards .dc:nth-child(1):last-child) {
-  flex:0 0 300px;min-width:300px;max-width:300px;width:300px;
 }
 .dept-cards.drag-over-dept {
   background-color: rgba(212, 170, 69, 0.05);
@@ -911,12 +905,52 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
   opacity: 0;
   pointer-events: none;
 }
+.group-col:has(.dept-cards .dc:nth-child(2)) {
+  flex:0 0 630px;min-width:630px;max-width:630px;width:630px;
+}
 .grp-head{ cursor: pointer; user-select:none; }
 .grp-toggle{
   font-size:11px;margin-left:4px;
   display:inline-block;transition:transform .3s;
 }
 .group-col.collapsed .grp-toggle{ transform:rotate(-90deg); }
+.mtag{
+  display:inline-block;font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:999px;
+  border:1px solid;margin-top:3px;margin-right:3px;
+  cursor:default;
+}
+.mtag-add{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--bg2);border:1px dashed var(--border2);
+  font-size:12px;color:var(--sub);cursor:pointer;
+  transition:all .15s;margin-top:3px;
+  opacity:0;
+}
+.mr:hover .mtag-add{opacity:1;}
+.mtag-add:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.mtag-panel{
+  display:none;position:fixed;z-index:99999;
+  background:#fff;border-radius:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.18);
+  padding:10px;min-width:210px;
+  animation:cpIn .15s ease;
+}
+.mtag-panel.show{display:block;}
+.mtag-panel-title{font-size:10px;font-weight:700;color:#999;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.mtag-input-row{display:flex;gap:5px;margin-bottom:8px;}
+.mtag-input-row input{flex:1;height:28px;padding:0 8px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;outline:none;}
+.mtag-input-row input:focus{border-color:var(--gold2);}
+.mtag-input-row button{height:28px;padding:0 10px;background:var(--navy);color:#fff;border:none;border-radius:7px;font-size:13px;cursor:pointer;}
+.mtag-colors{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.mtag-color-dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform .12s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.mtag-color-dot:hover{transform:scale(1.25);}
+.mtag-color-dot.active{border-color:#222;}
+.mtag-existing{display:flex;flex-wrap:wrap;gap:4px;min-height:12px;}
+.mtag-item{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid;cursor:pointer;transition:opacity .13s;}
+.mtag-item:hover{opacity:0.7;}
+.mtag-item .mtag-x{font-size:10px;opacity:0.6;}
 </style>
 </head>
 <body>
@@ -944,6 +978,8 @@ body{font-family:'Noto Sans Thai','IBM Plex Sans Thai',sans-serif;background:var
   </div>
   <div class="tsep"></div>
   <div class="tsep"></div>
+  <button class="btn btn-gold-light" onclick="openAddGroup()">📁 ＋ หัวข้อใหญ่</button>
+<button class="btn btn-gold-light" onclick="openAddDept()">🏢 ＋ แผนก</button>
   <button class="btn btn-teal" onclick="openAllMembers()">👥 รวมสมาชิก</button>
   <button class="btn btn-indigo" onclick="openStrengthModal()">📊 อัตรากำลัง</button>
   <div class="tsep"></div>
@@ -1588,6 +1624,15 @@ function render() {
   });
 
   populateGroupSelect();
+  // ปรับขนาด column ตามจำนวนแผนก
+document.querySelectorAll('.group-col').forEach(function(col) {
+  var cards = col.querySelectorAll('.dc');
+  if (cards.length <= 1) {
+    col.classList.add('single-dept');
+  } else {
+    col.classList.remove('single-dept');
+  }
+});
   renderSecretaries();
 
   // อัปเดตจำนวนพนักงานรวมในแบนเนอร์
@@ -1677,9 +1722,13 @@ function makeDeptCard(d, gid) {
       + '<div class="mr-info">'
       + '<span class="mname" title="' + escH(m.n) + '">' + escH(m.n) + '</span>'
       + (m.k ? '<span class="mnick">' + escH(m.k) + '</span>' : '')
-      + neBadge
++ neBadge
+      + (m.tags&&m.tags.length ? '<div style="padding:2px 0 2px;display:flex;flex-wrap:wrap;gap:3px;">'
+          + m.tags.map(function(t){ return '<span class="mtag" style="background:'+t.bg+';border-color:'+t.border+';color:'+t.text+';">'+escH(t.label)+'</span>'; }).join('')
+          + '</div>' : '')
       + '</div>'
       + '<div class="mr-acts">'
+      + '<button class="mtag-add" onclick="openTagPanel(event,\'' + escQ(d.id) + '\',\'' + escQ(m.id) + '\')" title="เพิ่ม tag">🏷️</button>'
       + '<button class="mcolor" onclick="openMemberCtxMenu(event,\'' + escQ(d.id) + '\',\'' + escQ(m.id) + '\')" title="เลือกสี">🎨</button>'
       + (neEntry
           ? '<button class="medit" onclick="openEditChoicePopup(event,\'' + escQ(d.id) + '\',\'' + escQ(m.id) + '\',\'' + escQ(neEntry.id) + '\')">✏️</button>'
@@ -2272,7 +2321,7 @@ document.addEventListener('pointerdown', function(e) {
   if(e.target.closest('.dc-head')) return;
   var row = e.target.closest('.mr');
   if(!row) return;
-  if(e.target.closest('.mdel,.medit,.mcolor')) return;
+if(e.target.closest('.mdel,.medit,.mcolor,.mtag-add')) return;
 
   dragMid = row.dataset.mid;
   dragDid = row.dataset.did;
@@ -3877,6 +3926,17 @@ document.getElementById('neFormOverlay').addEventListener('click', function(e){
   </button>
 </div>
 
+<!-- TAG PANEL -->
+<div id="mtagPanel" class="mtag-panel" onclick="event.stopPropagation()">
+  <div class="mtag-panel-title" id="mtagPanelTitle">🏷️ Tag</div>
+  <div class="mtag-colors" id="mtagColorDots"></div>
+  <div class="mtag-input-row">
+    <input type="text" id="mtagInput" placeholder="ชื่อ tag..." onkeydown="if(event.key==='Enter')addTagFromPanel()">
+    <button onclick="addTagFromPanel()">＋</button>
+  </div>
+  <div class="mtag-existing" id="mtagExisting"></div>
+</div>
+
 <!-- COLOR PICKER PANEL -->
 <div id="colorPickerPanel" onclick="event.stopPropagation()">
   <div id="cpTitle">🎨 เลือกสี</div>
@@ -3901,6 +3961,84 @@ window.addEventListener('load', function(){ setTimeout(fixConnectorLine, 400); }
 window.addEventListener('resize', fixConnectorLine);
 </script>
 <script>
+  // ═══ TAG SYSTEM ═══
+var TAG_COLORS = [
+  {bg:'#fef3c7',border:'#fcd34d',text:'#92400e'},
+  {bg:'#d1fae5',border:'#6ee7b7',text:'#065f46'},
+  {bg:'#dbeafe',border:'#93c5fd',text:'#1e3a8a'},
+  {bg:'#fce7f3',border:'#f9a8d4',text:'#831843'},
+  {bg:'#ede9fe',border:'#c4b5fd',text:'#4c1d95'},
+  {bg:'#ffedd5',border:'#fdba74',text:'#7c2d12'},
+  {bg:'#dcfce7',border:'#86efac',text:'#14532d'},
+  {bg:'#fee2e2',border:'#fca5a5',text:'#7f1d1d'},
+];
+var _tagDid=null, _tagMid=null, _tagColorIdx=0;
+
+function openTagPanel(e, did, mid) {
+  e.stopPropagation();
+  var d=findDept(did), m=d?d.members.find(function(x){return x.id===mid;}):null;
+  if(!m) return;
+  _tagDid=did; _tagMid=mid;
+  document.getElementById('mtagPanelTitle').textContent='🏷️ '+m.n;
+  document.getElementById('mtagInput').value='';
+  var dotsEl=document.getElementById('mtagColorDots');
+  dotsEl.innerHTML='';
+  TAG_COLORS.forEach(function(c,i){
+    var dot=document.createElement('div');
+    dot.className='mtag-color-dot'+(i===_tagColorIdx?' active':'');
+    dot.style.background=c.bg; dot.style.borderColor=i===_tagColorIdx?'#333':c.border;
+    dot.addEventListener('click',function(){
+      _tagColorIdx=i;
+      dotsEl.querySelectorAll('.mtag-color-dot').forEach(function(d,j){
+        d.classList.toggle('active',j===i); d.style.borderColor=j===i?'#333':TAG_COLORS[j].border;
+      });
+    });
+    dotsEl.appendChild(dot);
+  });
+  renderTagList(m);
+  var panel=document.getElementById('mtagPanel');
+  panel.style.left=(e.clientX+8)+'px'; panel.style.top=(e.clientY+8)+'px';
+  panel.classList.add('show');
+  setTimeout(function(){
+    var r=panel.getBoundingClientRect();
+    if(r.right>window.innerWidth-8) panel.style.left=(e.clientX-r.width-4)+'px';
+    if(r.bottom>window.innerHeight-8) panel.style.top=(e.clientY-r.height-4)+'px';
+    document.getElementById('mtagInput').focus();
+  },0);
+}
+function renderTagList(m){
+  var el=document.getElementById('mtagExisting');
+  if(!m.tags||!m.tags.length){el.innerHTML='<span style="color:#bbb;font-size:11px;">ยังไม่มี tag</span>';return;}
+  el.innerHTML='';
+  m.tags.forEach(function(t,i){
+    var span=document.createElement('span');
+    span.className='mtag-item';
+    span.style.cssText='background:'+t.bg+';border-color:'+t.border+';color:'+t.text+';';
+    span.innerHTML=escH(t.label)+'<span class="mtag-x">✕</span>';
+    span.querySelector('.mtag-x').addEventListener('click',function(ev){
+      ev.stopPropagation();
+      var d2=findDept(_tagDid), m2=d2?d2.members.find(function(x){return x.id===_tagMid;}):null;
+      if(m2&&m2.tags){m2.tags.splice(i,1);renderTagList(m2);render();saveState();}
+    });
+    el.appendChild(span);
+  });
+}
+function addTagFromPanel(){
+  var val=document.getElementById('mtagInput').value.trim();
+  if(!val) return;
+  var d=findDept(_tagDid), m=d?d.members.find(function(x){return x.id===_tagMid;}):null;
+  if(!m) return;
+  if(!m.tags) m.tags=[];
+  var c=TAG_COLORS[_tagColorIdx];
+  m.tags.push({label:val,bg:c.bg,border:c.border,text:c.text});
+  document.getElementById('mtagInput').value='';
+  renderTagList(m); render(); saveState();
+}
+document.addEventListener('click',function(e){
+  var p=document.getElementById('mtagPanel');
+  if(p&&p.classList.contains('show')&&!p.contains(e.target)) p.classList.remove('show');
+});
+
 function exportPDF() {
   var btn = document.getElementById('exportPdfBtn');
   if (!btn) return;
