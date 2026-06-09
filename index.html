@@ -12,6 +12,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
     rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
   <style>
     :root {
       --navy: #0d1f35;
@@ -245,6 +247,7 @@
       padding: 11px 14px;
       margin-bottom: 12px;
       border: 1.5px solid var(--border);
+      margin-bottom: 12px;
       border-radius: 10px;
       font-family: 'Noto Sans Thai', sans-serif;
       font-size: 14px;
@@ -2656,6 +2659,41 @@
       font-size: 10px;
       opacity: 0.6;
     }
+
+.login-box #passWrap input {
+  margin-bottom: 0 !important;
+  padding-right: 52px !important;
+}
+
+.login-box #passWrap input {
+  margin-bottom: 0 !important;
+  padding-right: 52px !important;
+  width: 100% !important;
+}
+
+#passWrap {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+#togglePassBtn {
+  position: absolute !important;
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaa;
+  user-select: none;
+  z-index: 10;
+  pointer-events: auto !important;
+}
+
+.login-box #li-pass {
+  margin-bottom: 0 !important;
+  padding-right: 48px !important;
+}
   </style>
 </head>
 
@@ -6599,7 +6637,21 @@
       <div class="login-title">ไดกิเทรดดิ้ง</div>
       <div class="login-sub">ORG CHART SYSTEM</div>
       <input type="text" id="li-email" placeholder="Username หรือ Email" onkeydown="if(event.key==='Enter')doLogin()">
-      <input type="password" id="li-pass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+<div style="position:relative;margin-bottom:12px;">
+  <input type="password" id="li-pass" placeholder="Password"
+    onkeydown="if(event.key==='Enter')doLogin()"
+    style="width:100%;padding:11px 48px 11px 14px;
+    border:1.5px solid #e4dfd8;border-radius:10px;
+    font-family:'Noto Sans Thai',sans-serif;font-size:14px;
+    outline:none;box-sizing:border-box;margin-bottom:0 !important;">
+<button type="button" onclick="togglePass()" id="togglePassBtn"
+  style="position:absolute;right:0;top:0;width:46px;height:100%;
+  background:none;border:none;border-radius:0 10px 10px 0;
+  cursor:pointer;color:#aaa;font-size:20px;z-index:999;
+  display:flex;align-items:center;justify-content:center;">
+  <i class="ti ti-eye" id="togglePassIcon"></i>
+</button>
+</div>
       <button class="login-btn" onclick="doLogin()">เข้าสู่ระบบ</button>
       <div class="login-err" id="li-err"></div>
     </div>
@@ -6608,6 +6660,19 @@
     window.addEventListener('DOMContentLoaded', function () {
       checkAuth();
     });
+function togglePass() {
+  var inp = document.getElementById('li-pass');
+  var icon = document.getElementById('togglePassIcon');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.className = 'ti ti-eye-off';
+    icon.parentElement.style.color = '#b8922a';
+  } else {
+    inp.type = 'password';
+    icon.className = 'ti ti-eye';
+    icon.parentElement.style.color = '#aaa';
+  }
+}
   </script>
 </body>
 
